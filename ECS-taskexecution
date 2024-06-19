@@ -1,0 +1,12 @@
+data "aws_ecs_task_execution" "example" {
+  cluster         = aws_ecs_cluster.example.id
+  task_definition = aws_ecs_task_definition.example.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets          = aws_subnet.example[*].id
+    security_groups  = [aws_security_group.example.id]
+    assign_public_ip = false
+  }
+}
