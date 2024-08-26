@@ -1,7 +1,11 @@
 import "tfconfig-functions" as config
+
 allowed _list = ["aws_instance", "azurerm_virtualmachine",
 "google_compute_instance"]
+
 allResources = config.find_all_resources)
+
 violatingResources = config.filter_attribute_not_in_list(allResources,
 "type", allowed _list, true)
+
 main = rule { length(violatingResources["messages"]) is 0 }
