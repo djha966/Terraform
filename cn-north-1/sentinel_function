@@ -9,3 +9,18 @@ violatingResources = config.filter_attribute_not_in_list(allResources,
 "type", allowed _list, true)
 
 main = rule { length(violatingResources["messages"]) is 0 }
+
+####################################################################################################################
+################################################################################################
+
+
+Execute various statements and return a value.
+### find_resources ###
+# Find all resources of a specific type using the tfplan/v2 import.
+# Include resources that are not being permanently deleted.
+# Technically, this returns a map of resource changes.
+find_resources = func(type) {
+resources = filter tfplan. resource_changes as address, rc i
+rc. type is type and rc.mode is "managed" and
+(rc. change.actions contains "create" or rc. change.actions contains "update" or rc. change. actions contains "read" or (rc. change. actions contains "no-op" and rc. change.after is not null))
+} return resources
