@@ -13,6 +13,19 @@ main = rule { length(violatingResources["messages"]) is 0 }
 ####################################################################################################################
 ################################################################################################
 
+allowed_machine_types = [
+"na-standard-1"，
+"n1-standard-2",
+"n1-standard-4",
+"n1-standard-8",
+
+main = rule {
+  all tfplan. resources as r {
+    r. attr.machine_type in allowed_machine_types
+}}
+
+
+
 
 Execute various statements and return a value.
 ### find_resources ###
